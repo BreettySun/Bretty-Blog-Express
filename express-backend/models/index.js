@@ -2,7 +2,7 @@
  * @Author: BreettySun
  * @Date: 2023-05-12 20:33:59
  * @LastEditors: BreettySun
- * @LastEditTime: 2023-05-12 22:47:17
+ * @LastEditTime: 2023-05-13 00:26:51
  * @FilePath: \Bretty-Blog-Express\express-backend\models\index.js
  * @Description: 
  * 
@@ -38,6 +38,15 @@ const ArticlesSchema = new Schema(
     timestamps: true
   }
 )
+ArticlesSchema.virtual('comments', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'article_id',
+  justOne: false,
+  // count: true
+})
+ArticlesSchema.set('toObject', { virtuals: true })
+ArticlesSchema.set('toJSON', { virtuals: true })
 const Article = mongoose.model('Article', ArticlesSchema)
 
 /**
@@ -46,10 +55,14 @@ const Article = mongoose.model('Article', ArticlesSchema)
  */
 const UserShema = new Schema(
   {
-    username: String,
+    username: {
+      type: String,
+      unique: true,
+      required: true
+    },
     password: String,
     nickname: String,
-    headimg: String,
+    headImg: String,
   },
   {
     timestamps: true
@@ -73,6 +86,12 @@ const CommentSchema = new Schema(
 )
 const Comment = mongoose.model('Comment', CommentSchema)
 
+module.exports = {
+  Article,
+  User,
+  Comment
+}
+
 /**
  * @description: 创建文章-插入数据库
  * @return {*}
@@ -91,18 +110,19 @@ const Comment = mongoose.model('Comment', CommentSchema)
  * @description: 查询文章-查询数据库
  * @return {*}
  */
-Article.find({})
-  .sort({ _id: -1 })
-  .skip(0)
-  .limit(10)
-  .select({ updatedAt: 0, createdAt: 0, __v: 0 })
-  .populate('author', { username: 1, nickname: 1, headimg: 1 })
-  .exec()
-  .then((res) => {
-    console.log(res)
-  }).catch((err) => {
-    console.log(err)
-  })
+// Article.find({})
+//   .sort({ _id: -1 })
+//   .skip(0)
+//   .limit(10)
+//   .select({ updatedAt: 0, createdAt: 0, __v: 0 })
+//   .populate('author', { username: 1, nickname: 1, headimg: 1 })
+//   .populate('comments')
+//   .exec()
+//   .then((res) => {
+//     console.log(res)
+//   }).catch((err) => {
+//     console.log(err)
+//   })
 
 /**
  * @description: 创建用户-插入数据库
@@ -136,9 +156,9 @@ Article.find({})
  * @description: 查询评论-查询数据库
  * @return {*}
  */
-Comment.find({ article_id: '645e3dfbd295250f778cc43c' })
-  .then((res) => {
-    console.log(res)
-  }).catch((err) => {
-    console.log(err)
-  })
+// Comment.find({ article_id: '645e3dfbd295250f778cc43c' })
+//   .then((res) => {
+//     console.log(res)
+//   }).catch((err) => {
+//     console.log(err)
+//   })
