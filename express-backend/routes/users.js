@@ -42,12 +42,21 @@ router.get('/', function (req, res, next) {
     .then((response) => {
       console.log(response)
       if (response) {
-        let token = jwt.sign({ username: req.query.username }, 'test123456', { expiresIn: '3d', algorithm: 'HS256' })
+        let token = jwt.sign({ username: username, uid: response._id }, 'test123456', {
+          expiresIn: '3d',
+          algorithm: 'HS256'
+        })
         res.json({
           code: 200,
           success: true,
           message: '登录成功',
-          token: token
+          token: token,
+          userInfo: {
+            uid: response._id,
+            username: response.username,
+            nickname: response.nickname,
+            headImg: response.headImg
+          }
         })
       } else {
         res.json({

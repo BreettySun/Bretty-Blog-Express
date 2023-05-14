@@ -8,6 +8,7 @@ const { expressjwt } = require('express-jwt')
 const articlesRouter = require('./routes/articles')
 const usersRouter = require('./routes/users')
 const uploadRouter = require('./routes/upload')
+const commentRouter = require('./routes/comments')
 
 const app = express()
 
@@ -41,6 +42,7 @@ app.use(
 app.use('/api/articles', articlesRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/upload', uploadRouter)
+app.use('/api/comments', commentRouter)
 
 app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
