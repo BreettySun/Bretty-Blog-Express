@@ -1,46 +1,13 @@
 <template>
-  <div class="tip"></div>
-  <div class="cont">
-    <div class="form sign-in">
-      <h2>Welcome back,</h2>
-      <div style="height: 10px;"></div>
-      <label>
-        <span>Email</span>
-        <input type="email" />
-      </label>
-      <label>
-        <span>Password</span>
-        <input type="password" />
-      </label>
-      <p class="forgot-pass">Forgot password?</p>
-      <div style="height: 30px;"></div>
-      <button type="button" class="submit">Sign In</button>
-      <button type="button" class="fb-btn">Connect with <span>WeChat</span></button>
-    </div>
-    <div class="sub-cont">
-      <div class="img">
-        <div style="height: 40px;"></div>
-        <div class="img__text m--up">
-          <div style="height: 40px;"></div>
-          <h2>New here?</h2>
-          <p>Sign up and discover a different <span style="font-size: 22px;">me !</span></p>
-        </div>
-        <div class="img__text m--in">
-          <div style="height: 40px;"></div>
-          <h2>One of us?</h2>
-          <p>If you already has an account, just sign in. I've missed <span style="font-size: 20px;">you !</span></p>
-        </div>
-        <div class="img__btn">
-          <span class="m--up">Sign Up</span>
-          <span class="m--in">Sign In</span>
-        </div>
-      </div>
-      <div class="form sign-up">
-        <h2>Time to feel like home,</h2>
-        <label>
-          <span>Name</span>
-          <input type="text" />
-        </label>
+  <div :style="{
+    height: windowHeight < 550 ? 550 : windowHeight - 1 + 'px',
+    backgroundColor: '#475164'
+  }">
+    <div :style="{ height: windowHeight < 550 ? 0 : windowHeight - 650 + 'px' }"></div>
+    <div class="cont">
+      <div class="form sign-in">
+        <h2>Welcome back,</h2>
+        <div style="height: 10px;"></div>
         <label>
           <span>Email</span>
           <input type="email" />
@@ -49,16 +16,58 @@
           <span>Password</span>
           <input type="password" />
         </label>
-        <button type="button" class="submit">SIGN UP</button>
-        <button type="button" class="fb-btn">Join with <span>WeChat</span></button>
+        <p class="forgot-pass">Forgot password?</p>
+        <div style="height: 30px;"></div>
+        <button type="button" class="submit">Sign In</button>
+        <button type="button" class="fb-btn">Connect with <span>WeChat</span></button>
+      </div>
+      <div class="sub-cont">
+        <div class="img">
+          <div style="height: 40px;"></div>
+          <div class="img__text m--up">
+            <div style="height: 40px;"></div>
+            <h2>New here?</h2>
+            <p>Sign up and discover a different <span style="font-size: 22px;">me!</span></p>
+          </div>
+          <div class="img__text m--in">
+            <div style="height: 40px;"></div>
+            <h2>You know me?</h2>
+            <p>If you already has an account, just sign in. I've missed &nbsp;<span style="font-size: 20px;">you!</span>
+            </p>
+          </div>
+          <div class="img__btn" @click="handleBtnSignUpIn">
+            <span class="m--up">Sign Up</span>
+            <span class="m--in">Sign In</span>
+          </div>
+        </div>
+        <div class="form sign-up">
+          <h2>Time to feel like home,</h2>
+          <label>
+            <span>Name</span>
+            <input type="text" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" />
+          </label>
+          <button type="button" class="submit">SIGN UP</button>
+          <button type="button" class="fb-btn">Join with <span>WeChat</span></button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
-document.querySelector('.img__btn').addEventListener('click', function () {
+const handleBtnSignUpIn = () => {
   document.querySelector('.cont').classList.toggle('s--signup');
-});
+}
+
+const windowHeight = window.innerHeight;
+console.log(windowHeight);
 </script>
 <style scoped>
 *,
@@ -69,11 +78,6 @@ document.querySelector('.img__btn').addEventListener('click', function () {
   padding: 0;
 }
 
-body {
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
-  background: #475164;
-}
-
 input,
 button {
   border: none;
@@ -82,18 +86,12 @@ button {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
 
-.tip {
-  font-size: 20px;
-  margin: 40px auto 70px;
-  text-align: center;
-}
-
 .cont {
   overflow: hidden;
   position: relative;
   width: 900px;
   height: 550px;
-  margin: 0 auto 100px;
+  margin: auto;
   background: #fff;
   border-radius: 25px;
 }
