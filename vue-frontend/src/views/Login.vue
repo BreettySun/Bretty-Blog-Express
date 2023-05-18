@@ -63,6 +63,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import http from '../request/index.js';
 
 const windowHeight = window.innerHeight
 
@@ -72,8 +73,13 @@ const switchSignUpIn = () => {
 
 const nameSignIn = ref('')
 const passwordSignIn = ref('')
-const handleSignIn = () => {
+const handleSignIn = async() => {
   console.log(nameSignIn.value, passwordSignIn.value)
+  const res = await http.post('/users', {
+    name: nameSignIn.value,
+    password: passwordSignIn.value
+  })
+  console.log(res);
 }
 
 const nameSignUp = ref('')
