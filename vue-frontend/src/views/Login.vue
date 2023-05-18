@@ -9,16 +9,16 @@
         <h2>Welcome back,</h2>
         <div style="height: 10px;"></div>
         <label>
-          <span>Email</span>
-          <input type="email" />
+          <span>Name</span>
+          <input type="email" v-model="nameSignIn" />
         </label>
         <label>
           <span>Password</span>
-          <input type="password" />
+          <input type="password" v-model="passwordSignIn" />
         </label>
         <p class="forgot-pass">Forgot password?</p>
         <div style="height: 30px;"></div>
-        <button type="button" class="submit">Sign In</button>
+        <button type="button" class="submit" @click="handleSignIn">Sign In</button>
         <button type="button" class="fb-btn">Connect with <span>WeChat</span></button>
       </div>
       <div class="sub-cont">
@@ -35,7 +35,7 @@
             <p>If you already has an account, just sign in. I've missed &nbsp;<span style="font-size: 20px;">you!</span>
             </p>
           </div>
-          <div class="img__btn" @click="handleBtnSignUpIn">
+          <div class="img__btn" @click="switchSignUpIn">
             <span class="m--up">Sign Up</span>
             <span class="m--in">Sign In</span>
           </div>
@@ -44,17 +44,17 @@
           <h2>Time to feel like home,</h2>
           <label>
             <span>Name</span>
-            <input type="text" />
+            <input type="text" v-model="nameSignUp" />
           </label>
           <label>
             <span>Email</span>
-            <input type="email" />
+            <input type="email" v-model="emailSignUp" />
           </label>
           <label>
             <span>Password</span>
-            <input type="password" />
+            <input type="password" v-model="passwordSignUp" />
           </label>
-          <button type="button" class="submit">SIGN UP</button>
+          <button type="button" class="submit" @click="handleSignUp">SIGN UP</button>
           <button type="button" class="fb-btn">Join with <span>WeChat</span></button>
         </div>
       </div>
@@ -62,12 +62,26 @@
   </div>
 </template>
 <script setup>
-const handleBtnSignUpIn = () => {
+import { ref } from 'vue'
+
+const windowHeight = window.innerHeight
+
+const switchSignUpIn = () => {
   document.querySelector('.cont').classList.toggle('s--signup');
 }
 
-const windowHeight = window.innerHeight;
-console.log(windowHeight);
+const nameSignIn = ref('')
+const passwordSignIn = ref('')
+const handleSignIn = () => {
+  console.log(nameSignIn.value, passwordSignIn.value)
+}
+
+const nameSignUp = ref('')
+const emailSignUp = ref('')
+const passwordSignUp = ref('')
+const handleSignUp = () => {
+  console.log(nameSignUp.value, emailSignUp.value, passwordSignUp.value)
+}
 </script>
 <style scoped>
 *,
