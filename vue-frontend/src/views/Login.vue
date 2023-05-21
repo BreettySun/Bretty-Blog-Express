@@ -10,7 +10,7 @@
         <div style="height: 10px;"></div>
         <label>
           <span>Name</span>
-          <input type="email" v-model="nameSignIn" />
+          <input type="text" v-model="nameSignIn" />
         </label>
         <label>
           <span>Password</span>
@@ -63,7 +63,10 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import http from '../request/index.js';
+import http from '../request/index.js'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const windowHeight = window.innerHeight
 
@@ -73,20 +76,32 @@ const switchSignUpIn = () => {
 
 const nameSignIn = ref('')
 const passwordSignIn = ref('')
-const handleSignIn = async() => {
-  console.log(nameSignIn.value, passwordSignIn.value)
-  const res = await http.post('/users', {
-    name: nameSignIn.value,
+const handleSignIn = () => http.get('/users', {
+  params: {
+    username: nameSignIn.value,
     password: passwordSignIn.value
-  })
-  console.log(res);
-}
+  }
+}).then((res) => {
+  const token = res.data.token
+  if (token) {
+    localStorage.setItem('token', token)
+    router.push('/')
+  }
+})
 
 const nameSignUp = ref('')
 const emailSignUp = ref('')
 const passwordSignUp = ref('')
-const handleSignUp = () => {
+const handleSignUp = async () => {
   console.log(nameSignUp.value, emailSignUp.value, passwordSignUp.value)
+  const res = await http.post('/users', {
+    username: nameSignUp.value,
+    // email: emailSignUp.value,
+    password: passwordSignUp.value,
+    nickname: nameSignUp.value,
+    headImg: ''
+  })
+  console.log(res);
 }
 </script>
 <style scoped>
