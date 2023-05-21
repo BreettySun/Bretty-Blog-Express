@@ -6,7 +6,7 @@ const router = express.Router()
 /* 用户注册请求 */
 router.post('/', function (req, res, next) {
   const { username, password, nickname, headImg } = req.body
-  if (username && password && nickname && headImg) {
+  if (username && password && nickname) {
     User.create(req.body)
       .then((response) => {
         console.log(req.body)
