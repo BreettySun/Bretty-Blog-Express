@@ -9,14 +9,15 @@
       <a-layout-content>
         <div :style="{ margin: 'auto' }">
           <div :style="{ display: 'flex', fontFamily: 'cursive' }">
-            <a-card :style="{ width: '480px', height: '360px', borderRadius: '20px' }" title="每日一句">
+            <a-card :style="{}" title="#每日一句">
               <template #extra>
-                <a-button type="text" shape="circle">
+                <a-button type="text" shape="circle" @click="switchSentence">
                   <icon-refresh />
                 </a-button>
               </template>
-              <p>{{ text }}</p>
-              <p>——{{ textFrom }}</p>
+              <p :style="{ fontWeight: '600' }">{{ text }}</p>
+              <br>
+              <p :style="{ textAlign: 'right' }">—— {{ textFrom }}</p>
             </a-card>
           </div>
         </div>
@@ -44,10 +45,23 @@ const getDailySentence = async () => {
   text.value = res.data.hitokoto
   textFrom.value = res.data.from
 }
+const switchSentence = () => {
+  getDailySentence()
+}
 
 getDailySentence()
 </script>
 <style scoped lang="scss">
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 .layout-demo :deep(.arco-layout-header),
 .layout-demo :deep(.arco-layout-footer),
 .layout-demo :deep(.arco-layout-content) {
@@ -69,5 +83,36 @@ getDailySentence()
 
 .layout-demo :deep(.arco-layout-content) {
   background-color: #475164;
+}
+
+.layout-demo {
+  .arco-card {
+    margin-top: -20px;
+    width: 480px;
+    height: 320px;
+    border-radius: 20px;
+    //阴影
+    box-shadow: 0 0 20px 0 rgba(255, 255, 255, 0.751);
+    //动画淡入
+    animation: fadeIn 2s;
+
+    :deep(.arco-card-header) {
+      height: 56px;
+
+      .arco-card-header-title {
+        font-size: 20px;
+        font-stretch: condensed;
+      }
+    }
+
+    :deep(.arco-card-body) {
+      // color: var(--color-white);
+      font-size: 18px;
+      font-stretch: condensed;
+      margin-top: 70px;
+      margin-left: 20px;
+      margin-right: 30px;
+    }
+  }
 }
 </style>

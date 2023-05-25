@@ -14,7 +14,7 @@
       </a-menu>
     </div>
     <div>
-      <a-switch checked-color="#baccd9" unchecked-color="#5e616d" />
+      <a-switch checked-color="#baccd9" unchecked-color="#5e616d" @click="handleSwitchClick" v-model="switchValue" />
     </div>
   </div>
 </template>
@@ -30,6 +30,17 @@ const router = useRouter()
 const handleMenuCLick = (key) => {
   Message.info({ content: `You select ${key}`, showIcon: true, closable: true });
   // router.push("/");
+}
+
+const switchValue = ref(false)
+// const switchTimes = ref(0)
+const handleSwitchClick = () => {
+  // switchTimes.value++
+  if (switchValue.value) {
+    Message.success({ content: `点着玩吧`, showIcon: true, closable: true })
+  } else {
+    Message.error({ content: `点着玩吧`, showIcon: true, closable: true })
+  }
 }
 </script>
 <style lang="scss" scoped>
