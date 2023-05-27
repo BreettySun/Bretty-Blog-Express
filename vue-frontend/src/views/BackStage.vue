@@ -7,7 +7,7 @@
         <a-layout-sider>
           <a-button type="primary" @click="collapsed = !collapsed">Toggle</a-button>
           <a-menu :style="{ width: '200px', borderRadius: '4px', height: windowHeight + 'px' }" :collapsed="collapsed"
-            :default-open-keys="['0']" :default-selected-keys="['0_2']">
+            :default-open-keys="['0']" :default-selected-keys="['0_2']" theme='dark'>
             <a-sub-menu key="0">
               <template #icon><icon-apps></icon-apps></template>
               <template #title>Navigation 1</template>
@@ -44,8 +44,11 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import { IconApps, IconBug, IconBulb } from '@arco-design/web-vue/es/icon';
 
 const windowHeight = window.innerHeight
+
+const collapsed = ref(false)
 </script>
 <style scoped lang="scss">
 .layout-demo :deep(.arco-layout-header),
