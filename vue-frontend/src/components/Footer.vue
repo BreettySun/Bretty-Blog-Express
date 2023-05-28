@@ -14,5 +14,9 @@
   :deep(.arco-link) {
     color: #c9cdd4;
   }
+
+  :deep(.arco-link):hover {
+    color: #2B333E;
+  }
 }
 </style>
