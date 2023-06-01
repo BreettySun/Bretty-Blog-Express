@@ -11,7 +11,7 @@
           <div :style="{ display: 'flex', fontFamily: 'cursive' }">
             <a-card :style="{}" title="#每日一句">
               <template #extra>
-                <a-button type="text" shape="circle" @click="switchSentence">
+                <a-button type="text" shape="circle" @click="getDailySentence">
                   <icon-refresh />
                 </a-button>
               </template>
@@ -32,11 +32,10 @@
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
 import { IconRefresh } from '@arco-design/web-vue/es/icon';
-import { ref } from 'vue'
+import { ref } from 'vue';
 import axios from 'axios';
 
 const windowHeight = window.innerHeight
-
 
 const text = ref('')
 const textFrom = ref('')
@@ -44,9 +43,6 @@ const getDailySentence = async () => {
   const res = await axios.get('https://v1.hitokoto.cn')
   text.value = res.data.hitokoto
   textFrom.value = res.data.from
-}
-const switchSentence = () => {
-  getDailySentence()
 }
 
 getDailySentence()
@@ -110,7 +106,7 @@ getDailySentence()
       font-size: 18px;
       font-stretch: condensed;
       margin-top: 70px;
-      margin-left: 20px;
+      margin-left: 30px;
       margin-right: 30px;
     }
   }

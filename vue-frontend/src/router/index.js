@@ -12,6 +12,18 @@ const routes = [
   {
     path: '/backstage',
     component: () => import('../views/BackStage.vue'),
+  },
+  {
+    path: '/program',
+    component: () => import('../views/Program.vue'),
+  },
+  {
+    path: '/essay',
+    component: () => import('../views/Essay.vue'),
+  },
+  {
+    path: '/link',
+    component: () => import('../views/Link.vue'),
   }
 ]
 

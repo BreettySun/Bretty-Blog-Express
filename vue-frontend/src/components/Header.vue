@@ -6,11 +6,11 @@
       </a-avatar>
     </div>
     <div class="menu-demo">
-      <a-menu mode="horizontal" :default-selected-keys="['1']" theme="dark" @menuItemClick="handleMenuCLick">
-        <a-menu-item key="1">Home</a-menu-item>
-        <a-menu-item key="2">Solution</a-menu-item>
-        <a-menu-item key="3">Cloud Service</a-menu-item>
-        <a-menu-item key="4">Cooperation</a-menu-item>
+      <a-menu mode="horizontal" :default-selected-keys="[pathKey]" theme="dark" @menuItemClick="handleMenuCLick">
+        <a-menu-item key="1">首页</a-menu-item>
+        <a-menu-item key="2">编程</a-menu-item>
+        <a-menu-item key="3">杂谈</a-menu-item>
+        <a-menu-item key="4">链接</a-menu-item>
       </a-menu>
     </div>
     <div>
@@ -27,9 +27,30 @@ import axios from 'axios'
 
 const router = useRouter()
 
+const path = ref('')
+const pathKey = ref('')
+path.value = router.currentRoute.value.path
+if (path.value === '/' || path.value === '/index') {
+  pathKey.value = '1'
+} else if (path.value === '/program') {
+  pathKey.value = '2'
+} else if (path.value === '/essay') {
+  pathKey.value = '3'
+} else if (path.value === '/link') {
+  pathKey.value = '4'
+}
+
 const handleMenuCLick = (key) => {
-  Message.info({ content: `You select ${key}`, showIcon: true, closable: true });
-  // router.push("/");
+  // Message.info({ content: `You select ${key}`, showIcon: true, closable: true });
+  if (key === '1') {
+    router.push('/')
+  } else if (key === '2') {
+    router.push('/program')
+  } else if (key === '3') {
+    router.push('/essay')
+  } else if (key === '4') {
+    router.push('/link')
+  }
 }
 
 const switchValue = ref(false)
