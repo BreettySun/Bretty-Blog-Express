@@ -69,4 +69,28 @@ router.get('/', function (req, res, next) {
     })
 })
 
+//获取用户列表
+router.get('/list', function (req, res, next) {
+  User.find()
+    .select('username nickname headImg')
+    .then((response) => {
+      console.log(response)
+      if (response) {
+        res.json({
+          code: 200,
+          success: true,
+          message: '获取用户列表成功',
+          userList: response
+        })
+      } else {
+        res.json({
+          code: 200,
+          success: false,
+          message: '获取用户列表失败',
+          userList: []
+        })
+      }
+    })
+})
+
 module.exports = router
