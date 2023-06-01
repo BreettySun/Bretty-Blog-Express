@@ -16,8 +16,8 @@
   </div>
 </template>
 <script setup>
-import Header from '../components/Header.vue';
-import Footer from '../components/Footer.vue';
+import Header from '../../components/Header.vue';
+import Footer from '../../components/Footer.vue';
 import { IconRefresh } from '@arco-design/web-vue/es/icon';
 import { ref } from 'vue';
 import axios from 'axios';

@@ -4,38 +4,36 @@
       height: windowHeight + 57 + 'px'
     }">
       <a-layout>
-        <a-layout-sider>
-          <a-button @click="collapsed = !collapsed" class="collapseBtn"><icon-double-right /></a-button>
+        <a-layout-sider :style="{ width: siderWidth + 'px' }">
+          <a-button @click="handkeClickBtnSider" class="collapseBtn"
+            :style="{ width: siderWidth + 'px' }"><icon-double-right /></a-button>
           <a-menu :style="{ width: '200px', height: windowHeight + 'px' }" :default-open-keys="['0']"
-            :default-selected-keys="['0_2']">
-            <a-sub-menu key="0">
+            :default-selected-keys="['0_2']" v-model:collapsed="collapsed" @menuItemClick="handleMenuCLick">
+            <a-menu-item key="1">
               <template #icon><icon-apps></icon-apps></template>
-              <template #title>Navigation 1</template>
-              <a-menu-item key="0_0">Menu 1</a-menu-item>
-              <a-menu-item key="0_1">Menu 2</a-menu-item>
-              <a-menu-item key="0_2">Menu 3</a-menu-item>
-              <a-menu-item key="0_3">Menu 4</a-menu-item>
-            </a-sub-menu>
-            <a-sub-menu key="1">
+              用户管理
+            </a-menu-item>
+            <a-menu-item key="2">
               <template #icon><icon-bug></icon-bug></template>
-              <template #title>Navigation 2</template>
-              <a-menu-item key="1_0">Menu 1</a-menu-item>
-              <a-menu-item key="1_1">Menu 2</a-menu-item>
-              <a-menu-item key="1_2">Menu 3</a-menu-item>
-            </a-sub-menu>
-            <a-sub-menu key="2">
+              文章发布
+            </a-menu-item>
+            <a-menu-item key="3">
               <template #icon><icon-bulb></icon-bulb></template>
-              <template #title>Navigation 3</template>
-              <a-menu-item key="2_0">Menu 1</a-menu-item>
-              <a-menu-item key="2_1">Menu 2</a-menu-item>
-              <a-sub-menu key="2_2" title="Navigation 4">
-                <a-menu-item key="2_2_0">Menu 1</a-menu-item>
-                <a-menu-item key="2_2_1">Menu 2</a-menu-item>
-              </a-sub-menu>
-            </a-sub-menu>
+              编程文章管理
+            </a-menu-item>
+            <a-menu-item key="4">
+              <template #icon><icon-safe></icon-safe></template>
+              杂谈文章管理
+            </a-menu-item>
+            <a-menu-item key="5">
+              <template #icon><icon-fire></icon-fire></template>
+              Navigation 5
+            </a-menu-item>
           </a-menu>
         </a-layout-sider>
-        <a-layout-content>Content</a-layout-content>
+        <a-layout-content>
+          <router-view></router-view>
+        </a-layout-content>
       </a-layout>
       <a-layout-footer>
         <Footer></Footer>
@@ -45,12 +43,38 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import { IconApps, IconBug, IconBulb, IconDoubleRight } from '@arco-design/web-vue/es/icon';
-import Footer from '../components/Footer.vue';
+import { IconApps, IconBug, IconBulb, IconDoubleRight, IconSafe, IconFire } from '@arco-design/web-vue/es/icon';
+import { Message } from "@arco-design/web-vue";
+import { useRouter } from "vue-router";
+import Footer from '../../components/Footer.vue';
+
+const router = useRouter()
 
 const windowHeight = window.innerHeight
 
 const collapsed = ref(false)
+const siderWidth = ref(206)
+const handkeClickBtnSider = () => {
+  collapsed.value = !collapsed.value
+  if (collapsed.value) {
+    siderWidth.value = 50
+  } else {
+    siderWidth.value = 200
+  }
+}
+
+const handleMenuCLick = (key) => {
+  // Message.info({ content: `You select ${key}`, showIcon: true, closable: true });
+  if (key === '1') {
+    router.push('/usermanage')
+  } else if (key === '2') {
+    router.push('/articlepublish')
+  } else if (key === '3') {
+    router.push('/codemanage')
+  } else if (key === '4') {
+    router.push('/essaymanage')
+  }
+}
 </script>
 <style scoped lang="scss">
 .layout-demo :deep(.arco-layout-footer),

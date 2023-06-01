@@ -12,7 +12,7 @@
             width: '80%', marginLeft: '8%'
           }">
           <template #item="{ item }">
-            <a-list-item class="list-demo-item" action-layout="vertical">
+            <a-list-item class="list-demo-item" action-layout="vertical" @click="handleClickListItem(item)">
               <template #actions>
                 <span><icon-heart />83</span>
                 <span><icon-star />{{ item.index }}</span>
@@ -41,8 +41,8 @@
   </div>
 </template>
 <script setup>
-import Header from '../components/Header.vue';
-import Footer from '../components/Footer.vue';
+import Header from '../../components/Header.vue';
+import Footer from '../../components/Footer.vue';
 import { IconRefresh, IconHeart, IconStar, IconMessage } from '@arco-design/web-vue/es/icon';
 import { ref, reactive } from 'vue';
 import axios from 'axios';
@@ -60,7 +60,7 @@ const imageSrc = [
   '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/04d7bc31dd67dcdf380bc3f6aa07599f.png~tplv-uwbnlip3yd-webp.webp',
   '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/1f61854a849a076318ed527c8fca1bbf.png~tplv-uwbnlip3yd-webp.webp',
 ]
-const dataSource = new Array(28).fill(null).map((_, index) => {
+const dataSource = new Array(15).fill(null).map((_, index) => {
   return {
     index: index,
     avatar: avatarSrc[index % avatarSrc.length],
@@ -80,7 +80,9 @@ const paginationProps = reactive({
   showTotal: (total) => `Total ${total} items`
 })
 
-
+const handleClickListItem = (item) => {
+  console.log(item)
+}
 </script>
 <style scoped lang="scss">
 .layout-demo :deep(.arco-layout-header),
@@ -112,7 +114,7 @@ const paginationProps = reactive({
 
   .list-demo-item {
     padding: 20px 0;
-    border-bottom: 1px solid var(--color-fill-3);
+    border-bottom: 1px solid #50476431;
 
     :deep(.arco-list-item-meta-content) {
       text-align: left;
@@ -132,6 +134,13 @@ const paginationProps = reactive({
         width: 100%;
       }
     }
+  }
+
+  .list-demo-item:hover {
+    background-color: #f5f5f5;
+    transform: scale(1.01);
+    transition: all 0.3s;
+    cursor: pointer;
   }
 }
 

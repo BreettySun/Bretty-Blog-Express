@@ -3,27 +3,45 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    component: () => import('../views/Index.vue')
+    component: () => import('../views/FrontStage/Index.vue'),
   },
   {
     path: '/login',
-    component: () => import('../views/Login.vue')
-  },
-  {
-    path: '/backstage',
-    component: () => import('../views/BackStage.vue'),
+    component: () => import('../views/FrontStage/Login.vue')
   },
   {
     path: '/program',
-    component: () => import('../views/Program.vue'),
+    component: () => import('../views/FrontStage/Code.vue'),
   },
   {
     path: '/essay',
-    component: () => import('../views/Essay.vue'),
+    component: () => import('../views/FrontStage/Essay.vue'),
   },
   {
     path: '/link',
-    component: () => import('../views/Link.vue'),
+    component: () => import('../views/FrontStage/Link.vue'),
+  },
+  {
+    path: '/backstage',
+    component: () => import('../views/BackStage/BackStage.vue'),
+    children: [
+      {
+        path: '/usermanage',
+        component: () => import('../views/BackStage/UserManage.vue'),
+      },
+      {
+        path: '/articlepublish',
+        component: () => import('../views/BackStage/ArticlePublish.vue'),
+      },
+      {
+        path: '/codemanage',
+        component: () => import('../views/BackStage/CodeManage.vue'),
+      },
+      {
+        path: '/essaymanage',
+        component: () => import('../views/BackStage/EssayManage.vue'),
+      }
+    ]
   }
 ]
 

@@ -63,7 +63,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import http from '../request/index.js'
+import http from '../../request/index.js'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
