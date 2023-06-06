@@ -7,10 +7,9 @@
         <Header></Header>
       </a-layout-header>
       <a-layout-content>
-        <a-list class="list-demo-action-layout" :bordered="false" :data="dataSource" :pagination-props="paginationProps"
-          :style="{
-            width: '80%', marginLeft: '8%'
-          }">
+        <a-list class="list-demo-action-layout" :bordered="false" :data="data" :pagination-props="paginationProps" :style="{
+          width: '80%', marginLeft: '8%'
+        }">
           <template #item="{ item }">
             <a-list-item class="list-demo-item" action-layout="vertical" @click="handleClickListItem(item)">
               <template #actions>
@@ -46,7 +45,10 @@ import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
 import { IconRefresh, IconHeart, IconStar, IconMessage } from '@arco-design/web-vue/es/icon';
 import { ref, reactive } from 'vue';
-import axios from 'axios';
+import http from '../../request/index.js';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const windowHeight = window.innerHeight
 
@@ -72,18 +74,48 @@ const dataSource = new Array(15).fill(null).map((_, index) => {
   }
 })
 
-const paginationProps = reactive({
+const data = ref([])
+
+const paginationProps = ref({
   // current: 1,
   pageSize: 5,
-  total: dataSource.length,
-  showSizeChanger: false,
-  showQuickJumper: false,
+  total: data.value.length,
+  showSizeChanger: true,
+  showQuickJumper: true,
   showTotal: (total) => `Total ${total} items`
 })
 
-const handleClickListItem = (item) => {
-  console.log(item)
+const getEssay = async () => {
+  const res = await http.get('/articles/users/' + localStorage.getItem('uid'))
+  data.value = res.data.data
+  data.value.forEach((item, index) => {
+    item.index = index
+    item.avatar = localStorage.getItem('headImg')
+    item.imageSrc = imageSrc[index % imageSrc.length]
+    //对文章html内容解析，取出前三个p标签内容作为描述,且最多取100个字符
+    let str = item.content
+    let reg = /<p>(.*?)<\/p>/g
+    let arr = str.match(reg)
+    let description = ''
+    if (arr) {
+      for (let i = 0; i < 3; i++) {
+        if (arr[i]) {
+          description += arr[i].replace(/<[^>]+>/g, '')
+        }
+      }
+    }
+    item.description = description.length > 100 ? description.substring(0, 100) + '...' : description
+  })
+  paginationProps.value.total = data.value.length
 }
+
+const handleClickListItem = (item) => {
+  router.push({
+    path: '/article/' + item._id
+  })
+}
+
+getEssay()
 </script>
 
 <style scoped lang="scss">

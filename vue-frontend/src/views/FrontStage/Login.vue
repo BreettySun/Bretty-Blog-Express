@@ -84,9 +84,13 @@ const handleSignIn = () => http.get('/users', {
   }
 }).then((res) => {
   const token = res.data.token
+  const uid = res.data.userInfo.uid
+  const headImg = res.data.userInfo.headImg
   if (token) {
     localStorage.setItem('token', token)
-    router.push('/')
+    localStorage.setItem('uid', uid)
+    localStorage.setItem('headImg', headImg)
+    router.push('/backstage')
   }
 })
 

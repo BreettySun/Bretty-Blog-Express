@@ -8,7 +8,6 @@
     <div class="menu-demo">
       <a-menu mode="horizontal" :default-selected-keys="[pathKey]" theme="dark" @menuItemClick="handleMenuCLick">
         <a-menu-item key="1">首页</a-menu-item>
-        <a-menu-item key="2">编程</a-menu-item>
         <a-menu-item key="3">杂谈</a-menu-item>
         <a-menu-item key="4">链接</a-menu-item>
       </a-menu>

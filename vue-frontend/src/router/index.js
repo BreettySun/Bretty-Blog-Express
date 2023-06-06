@@ -22,6 +22,10 @@ const routes = [
     component: () => import('../views/FrontStage/Link.vue'),
   },
   {
+    path: '/article/:id',
+    component: () => import('../views/FrontStage/Article.vue'),
+  },
+  {
     path: '/backstage',
     component: () => import('../views/BackStage/BackStage.vue'),
     children: [

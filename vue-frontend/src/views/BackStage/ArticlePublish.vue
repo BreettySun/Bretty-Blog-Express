@@ -1,154 +1,62 @@
 <template>
   <div>
-    <a-table :columns="columns" :data="data" :scroll="scroll" :pagination="PaginationProps" />
+    <a-input :style="{ height: '50px', width: '400px' }" placeholder="请输入标题" allow-clear v-model="titleInput" />
+    <div style="border: 1px solid #ccc">
+      <Toolbar style="border-bottom: 1px solid #ccc" :editor="editorRef" :defaultConfig="toolbarConfig" :mode="mode" />
+      <Editor style="height: 500px; overflow-y: hidden;" v-model="valueHtml" :defaultConfig="editorConfig" :mode="mode"
+        @onCreated="handleCreated" />
+    </div>
+    <a-button type="primary" :style="{ width: '80px', height: '40px' }" @click="handleClickPublish">发布</a-button>
   </div>
 </template>
-
 <script setup>
-import { reactive } from 'vue'
+import '@wangeditor/editor/dist/css/style.css' // 引入 css
+import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import http from '../../request/index.js'
+import { Message } from '@arco-design/web-vue';
 
-const windowHeight = window.innerHeight
+// 编辑器实例，必须用 shallowRef
+const editorRef = shallowRef()
 
-const scroll = {
-  x: '100%',
-  y: windowHeight - 44
+// 内容 HTML
+const valueHtml = ref('<p>请输入内容...</p>')
+
+// 模拟 ajax 异步获取内容
+onMounted(() => {
+  setTimeout(() => {
+    valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>'
+  }, 1500)
+})
+
+const toolbarConfig = {}
+const editorConfig = { placeholder: '请输入内容...' }
+
+// 组件销毁时，也及时销毁编辑器
+onBeforeUnmount(() => {
+  const editor = editorRef.value
+  if (editor == null) return
+  editor.destroy()
+})
+
+const handleCreated = (editor) => {
+  editorRef.value = editor // 记录 editor 实例，重要！
 }
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-  },
-  {
-    title: 'Salary',
-    dataIndex: 'salary',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-  },
-  {
-    title: 'key',
-    dataIndex: 'key'
-  }
-]
-
-const data = reactive([{
-  key: '1',
-  name: 'Jane Doe',
-  salary: 23000,
-  address: '32 Park Road, London',
-  email: 'jane.doe@example.com'
-}, {
-  key: '2',
-  name: 'Alisa Ross',
-  salary: 25000,
-  address: '35 Park Road, London',
-  email: 'alisa.ross@example.com'
-}, {
-  key: '3',
-  name: 'Kevin Sandra',
-  salary: 22000,
-  address: '31 Park Road, London',
-  email: 'kevin.sandra@example.com'
-}, {
-  key: '4',
-  name: 'Ed Hellen',
-  salary: 17000,
-  address: '42 Park Road, London',
-  email: 'ed.hellen@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}])
-
-const PaginationProps = {
-  showSizeChanger: true,
-  showQuickJumper: true,
-  pageSize: 15,
-  // total: 50,
-  onChange: (page, pageSize) => {
-    console.log(page, pageSize)
-  }
+// 标题
+const titleInput = ref('')
+const handleClickPublish = () => {
+  const title = titleInput.value
+  const content = valueHtml.value
+  const uid = localStorage.getItem('uid')
+  http.post('/articles', {
+    title,
+    content,
+    uid
+  }).then((res) => {
+    console.log(res);
+    Message.success('发布成功')
+  })
 }
 </script>
-
-<style lang="scss" scoped>
-:deep(.arco-table-tr) {
-  height: 41.5px;
-  line-height: 41.5px;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -1,11 +1,20 @@
 <template>
   <div>
     <a-table :columns="columns" :data="data" :scroll="scroll" :pagination="PaginationProps" />
+    <!-- <template #optional="{ record }">
+        <a-button type="primary" status="danger"
+          @click="$modal.error({ title: 'Name', content: '无法删除，请直接对数据库进行操作' })">Delete</a-button>
+      </template> -->
+    <!-- </a-table> -->
   </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
+import http from '../../request/index.js'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const windowHeight = window.innerHeight
 
@@ -16,124 +25,38 @@ const scroll = {
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
+    title: 'Index',
+    dataIndex: 'key',
+    width: 120,
+    align: 'center'
   },
   {
-    title: 'Salary',
-    dataIndex: 'salary',
+    title: 'Id',
+    dataIndex: '_id',
+    width: 300
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
+    title: 'UserName',
+    dataIndex: 'username',
+    width: 160
   },
   {
-    title: 'Email',
-    dataIndex: 'email',
+    title: 'NickName',
+    dataIndex: 'nickname',
+    width: 160
   },
   {
-    title: 'key',
-    dataIndex: 'key'
-  }
+    title: 'HeadImg',
+    dataIndex: 'headImg'
+  },
+  // {
+  //   title: '',
+  //   slotName: 'optional',
+  //   width: 100,
+  // }
 ]
 
-const data = reactive([{
-  key: '1',
-  name: 'Jane Doe',
-  salary: 23000,
-  address: '32 Park Road, London',
-  email: 'jane.doe@example.com'
-}, {
-  key: '2',
-  name: 'Alisa Ross',
-  salary: 25000,
-  address: '35 Park Road, London',
-  email: 'alisa.ross@example.com'
-}, {
-  key: '3',
-  name: 'Kevin Sandra',
-  salary: 22000,
-  address: '31 Park Road, London',
-  email: 'kevin.sandra@example.com'
-}, {
-  key: '4',
-  name: 'Ed Hellen',
-  salary: 17000,
-  address: '42 Park Road, London',
-  email: 'ed.hellen@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}, {
-  key: '5',
-  name: 'William Smith',
-  salary: 27000,
-  address: '62 Park Road, London',
-  email: 'william.smith@example.com'
-}])
+const data = ref()
 
 const PaginationProps = {
   showSizeChanger: true,
@@ -144,6 +67,17 @@ const PaginationProps = {
     console.log(page, pageSize)
   }
 }
+
+const getUserList = async () => {
+  const result = await http.get('/users/list')
+  data.value = result.data.userList
+  //向data中添加key值
+  data.value.forEach((item, index) => {
+    item.key = index + 1
+  })
+}
+
+getUserList()
 </script>
 
 <style lang="scss" scoped>
