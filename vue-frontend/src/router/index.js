@@ -61,4 +61,18 @@ const router = createRouter({
   routes
 })
 
+//后台路由拦截
+router.beforeEach((to, from, next) => {
+  if (to.path.startsWith('/backstage')) {
+    const token = window.localStorage.getItem('token')
+    if (token) {
+      next()
+    } else {
+      next('/login')
+    }
+  } else {
+    next()
+  }
+})
+
 export default router
