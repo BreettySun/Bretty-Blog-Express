@@ -40,6 +40,7 @@
     </a-layout>
   </div>
 </template>
+
 <script setup>
 import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
@@ -84,6 +85,7 @@ const handleClickListItem = (item) => {
   console.log(item)
 }
 </script>
+
 <style scoped lang="scss">
 .layout-demo :deep(.arco-layout-header),
 .layout-demo :deep(.arco-layout-footer),

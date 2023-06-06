@@ -15,6 +15,7 @@
     </a-layout>
   </div>
 </template>
+
 <script setup>
 import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
@@ -24,6 +25,7 @@ import axios from 'axios';
 
 const windowHeight = window.innerHeight
 </script>
+
 <style scoped lang="scss">
 .layout-demo :deep(.arco-layout-header),
 .layout-demo :deep(.arco-layout-footer),

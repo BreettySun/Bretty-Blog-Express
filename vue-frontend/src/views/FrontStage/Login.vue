@@ -61,6 +61,7 @@
     </div>
   </div>
 </template>
+
 <script setup>
 import { ref } from 'vue'
 import http from '../../request/index.js'
@@ -104,6 +105,7 @@ const handleSignUp = async () => {
   console.log(res);
 }
 </script>
+
 <style scoped>
 *,
 *:before,

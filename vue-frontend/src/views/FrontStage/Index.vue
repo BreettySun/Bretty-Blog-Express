@@ -28,6 +28,7 @@
     </a-layout>
   </div>
 </template>
+
 <script setup>
 import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
@@ -47,6 +48,7 @@ const getDailySentence = async () => {
 
 getDailySentence()
 </script>
+
 <style scoped lang="scss">
 @keyframes fadeIn {
   0% {
