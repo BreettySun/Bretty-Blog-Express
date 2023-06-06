@@ -47,7 +47,8 @@ router.get('/users/:uid', function (req, res, next) {
       res.json({
         code: 200,
         success: false,
-        message: '获取文章列表失败'
+        message: '获取文章列表失败',
+        error: err
       })
     })
 })
