@@ -17,10 +17,10 @@
               <template #icon><icon-bug></icon-bug></template>
               文章发布
             </a-menu-item>
-            <a-menu-item key="3">
+            <!-- <a-menu-item key="3">
               <template #icon><icon-bulb></icon-bulb></template>
               编程文章管理
-            </a-menu-item>
+            </a-menu-item> -->
             <a-menu-item key="4">
               <template #icon><icon-safe></icon-safe></template>
               杂谈文章管理

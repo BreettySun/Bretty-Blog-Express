@@ -8,7 +8,7 @@
       </a-layout-header>
       <a-layout-content>
         <a-list class="list-demo-action-layout" :bordered="false" :data="data" :pagination-props="paginationProps" :style="{
-          width: '80%', marginLeft: '8%'
+          width: '70%', marginLeft: '14%'
         }">
           <template #item="{ item }">
             <a-list-item class="list-demo-item" action-layout="vertical" @click="handleClickListItem(item)">
@@ -92,17 +92,16 @@ const getEssay = async () => {
     item.index = index
     item.avatar = localStorage.getItem('headImg')
     item.imageSrc = imageSrc[index % imageSrc.length]
-    //对文章html内容解析，取出前三个p标签内容作为描述,且最多取100个字符
+    //对文章html内容解析，取出前三个p标签内容作为描述,且最多取100个字符，去掉&nbsp;等标签
     let str = item.content
     let reg = /<p>(.*?)<\/p>/g
     let arr = str.match(reg)
     let description = ''
+    //去掉&nbsp;等标签
     if (arr) {
-      for (let i = 0; i < 3; i++) {
-        if (arr[i]) {
-          description += arr[i].replace(/<[^>]+>/g, '')
-        }
-      }
+      arr.forEach((item) => {
+        description += item.replace(/<[^>]+>/g, '')
+      })
     }
     item.description = description.length > 100 ? description.substring(0, 100) + '...' : description
   })
@@ -149,6 +148,12 @@ getEssay()
   .list-demo-item {
     padding: 20px 0;
     border-bottom: 1px solid #50476431;
+
+    :deep(.arco-list-item-meta-title) {
+      font-size: 18px;
+      font-weight: 500;
+      color: #333333;
+    }
 
     :deep(.arco-list-item-meta-content) {
       text-align: left;

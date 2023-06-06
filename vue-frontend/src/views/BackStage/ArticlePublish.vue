@@ -25,7 +25,7 @@ const valueHtml = ref('<p>请输入内容...</p>')
 // 模拟 ajax 异步获取内容
 onMounted(() => {
   setTimeout(() => {
-    valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>'
+    valueHtml.value = '<p>请输入内容...</p>'
   }, 1500)
 })
 
@@ -48,6 +48,11 @@ const titleInput = ref('')
 const handleClickPublish = () => {
   const title = titleInput.value
   const content = valueHtml.value
+  //如果title或content为空，提示用户
+  if (!title || !content) {
+    Message.error('标题或内容不能为空')
+    return
+  }
   const uid = localStorage.getItem('uid')
   http.post('/articles', {
     title,

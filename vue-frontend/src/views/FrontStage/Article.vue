@@ -10,7 +10,7 @@
         <div style="height: 20px;"></div>
         <h1>{{ title }}</h1>
         <div style="height: 20px;"></div>
-        <div v-html="content" :style="{ textAlign: 'left', width: '70%', marginLeft: '15%' }"></div>
+        <div v-html="content" :style="{ textAlign: 'left', width: '70%', marginLeft: '16%' }"></div>
         <div style="height: 40px;"></div>
       </a-layout-content>
       <a-layout-footer>
