@@ -15,7 +15,7 @@ const app = express()
 app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.headers.origin || '*')
   res.header('Access-Control-Allow-Headers', "Content-Type, Authorization, X-Requested-With")
-  res.header('Access-Control-Allow-Methods', "PUT,POST,GET,DELETE,OPTIONS")
+  res.header('Access-Control-Allow-Methods', "PUT,POST,GET,DELETE,OPTIONS,PATCH")
   res.header('Access-Control-Allow-Credentials', true)
   if (req.method === 'OPTIONS') {
     res.sendStatus(200).end()
@@ -39,6 +39,7 @@ app.use(
     secret: 'test123456',
     algorithms: ['HS256'],
   }).unless({
+    // 除了这些地址，其他的URL都需要验证
     path: [
       '/api/users',
       '/^\/api\/articles\/users\/\w+/',
