@@ -7,10 +7,15 @@
         <Header></Header>
       </a-layout-header>
       <a-layout-content>
+        <a-breadcrumb>
+          <a-breadcrumb-item>Home</a-breadcrumb-item>
+          <a-breadcrumb-item>Channel</a-breadcrumb-item>
+          <a-breadcrumb-item>News</a-breadcrumb-item>
+        </a-breadcrumb>
         <div style="height: 20px;"></div>
-        <h1>{{ title }}</h1>
+        <h1 style="text-align: center;">{{ title }}</h1>
         <div style="height: 20px;"></div>
-        <div v-html="content" :style="{ textAlign: 'left', width: '70%', marginLeft: '16%' }"></div>
+        <div v-html="content" :style="{ textAlign: 'left', width: '60%', marginLeft: '21%' }"></div>
         <div style="height: 40px;"></div>
       </a-layout-content>
       <a-layout-footer>
@@ -67,38 +72,13 @@ handleGetArticle()
 
 .layout-demo :deep(.arco-layout-content) {
   background-color: #EDEEF0;
-  text-align: center;
+  // text-align: center;
 
-}
-
-.layout-demo {
-  .arco-card {
-    margin-top: -20px;
-    width: 480px;
-    height: 320px;
-    border-radius: 20px;
-    //阴影
-    box-shadow: 0 0 20px 0 rgba(255, 255, 255, 0.751);
-    //动画淡入
-    animation: fadeIn 2s;
-
-    :deep(.arco-card-header) {
-      height: 56px;
-
-      .arco-card-header-title {
-        font-size: 20px;
-        font-stretch: condensed;
-      }
-    }
-
-    :deep(.arco-card-body) {
-      // color: var(--color-white);
-      font-size: 18px;
-      font-stretch: condensed;
-      margin-top: 70px;
-      margin-left: 30px;
-      margin-right: 30px;
-    }
+  .arco-breadcrumb {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20.5%;
+    font-size: large;
   }
 }
 </style>

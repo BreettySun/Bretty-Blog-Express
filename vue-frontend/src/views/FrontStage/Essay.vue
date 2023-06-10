@@ -86,7 +86,7 @@ const paginationProps = ref({
 })
 
 const getEssay = async () => {
-  const res = await http.get('/articles/users/' + localStorage.getItem('uid'))
+  const res = await http.get('/articles/users/' + '645e6308be3f85f0150287a5')
   data.value = res.data.data
   data.value.forEach((item, index) => {
     item.index = index

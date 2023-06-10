@@ -38,6 +38,10 @@ const routes = [
         component: () => import('../views/BackStage/ArticlePublish.vue'),
       },
       {
+        path: '/articlepublish/:id',
+        component: () => import('../views/BackStage/ArticlePublish.vue'),
+      },
+      {
         path: '/codemanage',
         component: () => import('../views/BackStage/CodeManage.vue'),
       },

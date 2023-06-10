@@ -13,6 +13,9 @@
 import { reactive, ref } from 'vue'
 import { Message, Modal } from '@arco-design/web-vue';
 import http from '../../request/index.js'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const windowHeight = window.innerHeight
 
@@ -76,7 +79,13 @@ const getEssayList = async () => {
 
 const handleClickEdit = (record) => {
   const aid = record._id
-  // router.push('/backstage/edit/' + aid)
+  // 携带aid跳转到编辑页面
+  router.push({
+    path: '/articlepublish',
+    query: {
+      aid
+    }
+  })
 }
 
 const handleClickDelete = (record) => {

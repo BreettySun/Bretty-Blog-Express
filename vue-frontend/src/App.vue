@@ -13,12 +13,12 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 body {
   margin: 0 !important;
   padding: 0 !important;
-  background-image: url('/images/groovepaper.png');
 }
 
 ::-webkit-scrollbar {

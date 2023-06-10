@@ -15,18 +15,28 @@ import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import http from '../../request/index.js'
 import { Message } from '@arco-design/web-vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
 
 // 内容 HTML
-const valueHtml = ref('<p>请输入内容...</p>')
+const valueHtml = ref('')
 
-// 模拟 ajax 异步获取内容
 onMounted(() => {
   setTimeout(() => {
-    valueHtml.value = '<p>请输入内容...</p>'
-  }, 1500)
+    // 检测当前页面链接是否有 id 参数，如果有，则说明是编辑文章，需要获取文章内容
+    const aid = router.currentRoute.value.query.aid
+    if (aid) {
+      http.get(`/articles/${aid}`).then((res) => {
+        console.log(res);
+        valueHtml.value = res.data.data.content
+        titleInput.value = res.data.data.title
+      })
+    }
+  }, 500)
 })
 
 const toolbarConfig = {}
@@ -54,14 +64,30 @@ const handleClickPublish = () => {
     return
   }
   const uid = localStorage.getItem('uid')
-  http.post('/articles', {
-    title,
-    content,
-    uid
-  }).then((res) => {
-    console.log(res);
-    Message.success('发布成功')
-  })
+  // 如果是编辑文章，需要携带 aid
+  const aid = router.currentRoute.value.query.aid
+  if (aid) {
+    http.patch(`/articles/${aid}`, {
+      title,
+      content
+    }).then((res) => {
+      console.log(res);
+      Message.success('修改成功')
+      setTimeout(() => {
+        router.push('/essaymanage')
+      }, 1000)
+    })
+    return
+  } else {
+    http.post('/articles', {
+      title,
+      content,
+      uid
+    }).then((res) => {
+      console.log(res);
+      Message.success('发布成功')
+    })
+  }
 }
 </script>
 <style lang="scss" scoped></style>

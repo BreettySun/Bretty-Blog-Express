@@ -80,7 +80,7 @@ getDailySentence()
 }
 
 .layout-demo :deep(.arco-layout-content) {
-  background-color: #475164;
+  background-color: #282C34;
 }
 
 .layout-demo {
@@ -90,9 +90,12 @@ getDailySentence()
     height: 320px;
     border-radius: 20px;
     //阴影
-    box-shadow: 0 0 20px 0 rgba(255, 255, 255, 0.751);
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.751);
     //动画淡入
     animation: fadeIn 2s;
+    //背景透明度
+    background-color: rgba(255, 255, 255, 0.9);
+
 
     :deep(.arco-card-header) {
       height: 56px;
@@ -100,11 +103,13 @@ getDailySentence()
       .arco-card-header-title {
         font-size: 20px;
         font-stretch: condensed;
+        font-weight: 500;
       }
     }
 
     :deep(.arco-card-body) {
       // color: var(--color-white);
+      color: #21252B;
       font-size: 18px;
       font-stretch: condensed;
       margin-top: 70px;

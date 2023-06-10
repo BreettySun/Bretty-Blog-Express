@@ -16,7 +16,7 @@
           <span>Password</span>
           <input type="password" v-model="passwordSignIn" />
         </label>
-        <p class="forgot-pass">Forgot password?</p>
+        <!-- <p class="forgot-pass">Forgot password?</p> -->
         <div style="height: 30px;"></div>
         <button type="button" class="submit" @click="handleSignIn">Sign In</button>
         <button type="button" class="fb-btn">Connect with <span>WeChat</span></button>
@@ -66,6 +66,7 @@
 import { ref } from 'vue'
 import http from '../../request/index.js'
 import { useRouter } from 'vue-router'
+import { Message } from '@arco-design/web-vue';
 
 const router = useRouter()
 
@@ -92,6 +93,9 @@ const handleSignIn = () => http.get('/users', {
     localStorage.setItem('headImg', headImg)
     router.push('/backstage')
   }
+}).catch((err) => {
+  passwordSignIn.value = ''
+  Message.error("用户名或密码错误")
 })
 
 const nameSignUp = ref('')
