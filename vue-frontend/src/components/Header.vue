@@ -1,20 +1,20 @@
 <template>
   <div class="header">
-    <div>
+    <!-- <div>
       <a-avatar :size="32">
         <IconUser />
       </a-avatar>
-    </div>
+    </div> -->
     <div class="menu-demo">
       <a-menu mode="horizontal" :default-selected-keys="[pathKey]" theme="dark" @menuItemClick="handleMenuCLick">
         <a-menu-item key="1">首页</a-menu-item>
         <a-menu-item key="3">杂谈</a-menu-item>
-        <a-menu-item key="4">链接</a-menu-item>
+        <!-- <a-menu-item key="4">链接</a-menu-item> -->
       </a-menu>
     </div>
-    <div>
+    <!-- <div>
       <a-switch checked-color="#baccd9" unchecked-color="#5e616d" @click="handleSwitchClick" v-model="switchValue" />
-    </div>
+    </div> -->
   </div>
 </template>
 <script setup>

@@ -7,11 +7,11 @@
         <Header></Header>
       </a-layout-header>
       <a-layout-content>
-        <a-breadcrumb>
+        <!-- <a-breadcrumb>
           <a-breadcrumb-item>Home</a-breadcrumb-item>
           <a-breadcrumb-item>Channel</a-breadcrumb-item>
           <a-breadcrumb-item>News</a-breadcrumb-item>
-        </a-breadcrumb>
+        </a-breadcrumb> -->
         <div style="height: 20px;"></div>
         <h1 style="text-align: center;">{{ title }}</h1>
         <div style="height: 20px;"></div>

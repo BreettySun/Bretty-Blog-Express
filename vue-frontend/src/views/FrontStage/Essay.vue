@@ -8,7 +8,7 @@
       </a-layout-header>
       <a-layout-content>
         <a-list class="list-demo-action-layout" :bordered="false" :data="data" :pagination-props="paginationProps" :style="{
-          width: '70%', marginLeft: '14%'
+          width: '70%', marginLeft: '14%', minHeight: windowHeight - 1 + 'px'
         }">
           <template #item="{ item }">
             <a-list-item class="list-demo-item" action-layout="vertical" @click="handleClickListItem(item)">
