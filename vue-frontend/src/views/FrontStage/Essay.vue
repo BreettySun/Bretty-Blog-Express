@@ -118,6 +118,17 @@ getEssay()
 </script>
 
 <style scoped lang="scss">
+// 弹入动画
+@keyframes slideIn {
+  0% {
+    margin-top: 80%;
+  }
+
+  100% {
+    margin-top: 0;
+  }
+}
+
 .layout-demo :deep(.arco-layout-header),
 .layout-demo :deep(.arco-layout-footer),
 .layout-demo :deep(.arco-layout-content) {
@@ -148,6 +159,8 @@ getEssay()
   .list-demo-item {
     padding: 20px 0;
     border-bottom: 1px solid #50476431;
+    // 动画
+    animation: slideIn 0.5s;
 
     :deep(.arco-list-item-meta-title) {
       font-size: 18px;
@@ -157,6 +170,8 @@ getEssay()
 
     :deep(.arco-list-item-meta-content) {
       text-align: left;
+      margin-left: 10px;
+      margin-right: 20px;
     }
 
     :deep(.arco-list-item-action) {
@@ -180,6 +195,26 @@ getEssay()
     transform: scale(1.01);
     transition: all 0.3s;
     cursor: pointer;
+  }
+
+  .list-demo-item:nth-child(1) {
+    animation-delay: 0.1;
+  }
+
+  .list-demo-item:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .list-demo-item:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .list-demo-item:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .list-demo-item:nth-child(5) {
+    animation-delay: 0.5s;
   }
 }
 
