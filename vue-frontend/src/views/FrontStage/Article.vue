@@ -12,9 +12,14 @@
           <a-breadcrumb-item>Channel</a-breadcrumb-item>
           <a-breadcrumb-item>News</a-breadcrumb-item>
         </a-breadcrumb> -->
-        <div style="height: 20px;"></div>
+        <div style="height: 40px;"></div>
         <h1 style="text-align: center;">{{ title }}</h1>
-        <div style="height: 20px;"></div>
+        <div style="height: 10px;"></div>
+        <div style="text-align: center;">
+          <span>作者：{{ author }}</span>
+          <span style="margin-left: 20px;">更新时间：{{ updatedAt }}</span>
+        </div>
+        <div style="height: 40px;"></div>
         <div v-html="content" :style="{ textAlign: 'left', width: '60%', marginLeft: '21%' }"></div>
         <div style="height: 40px;"></div>
       </a-layout-content>
@@ -41,10 +46,22 @@ const { id } = router.currentRoute.value.params
 
 const title = ref('')
 const content = ref('')
+const author = ref('')
+const updatedAt = ref('')
 const handleGetArticle = async () => {
   const res = await http.get('/articles/' + id)
   title.value = res.data.data.title
   content.value = res.data.data.content
+  author.value = 'Scream'
+  // 更新时间格式化
+  const date = new Date(res.data.data.updatedAt)
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  const second = date.getSeconds()
+  updatedAt.value = `${year}-${month}-${day} ${hour}:${minute}:${second}`
   console.log(res, title.value);
 }
 

@@ -47,7 +47,7 @@
             <input type="text" v-model="nameSignUp" />
           </label>
           <label>
-            <span>Email</span>
+            <span>NiCKNAME</span>
             <input type="email" v-model="emailSignUp" />
           </label>
           <label>
